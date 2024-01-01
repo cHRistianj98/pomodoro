@@ -10,5 +10,16 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  integration-db:
+    image: postgres:14.3
+    container_name: postgres-integration-db
+    environment:
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-integration-data:/var/lib/postgresql/data
+
 volumes:
   postgres-data:
+  postgres-integration-data:

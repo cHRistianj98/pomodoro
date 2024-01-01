@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class TaskRequestDto {
+public class TaskDto {
 
     @NotBlank
     private String description;

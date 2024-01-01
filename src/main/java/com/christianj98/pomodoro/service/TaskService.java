@@ -1,7 +1,7 @@
 package com.christianj98.pomodoro.service;
 
 import com.christianj98.pomodoro.dao.TaskRepository;
-import com.christianj98.pomodoro.dto.TaskRequestDto;
+import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,12 +16,17 @@ public class TaskService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Task createTask(TaskRequestDto taskRequestDto) {
-        final Task task = mapToEntity(taskRequestDto);
-        return taskRepository.save(task);
+    public TaskDto createTask(TaskDto taskDto) {
+        final Task mappedTask = mapToEntity(taskDto);
+        final Task createdTask = taskRepository.save(mappedTask);
+        return mapToDto(createdTask);
     }
 
-    private Task mapToEntity(TaskRequestDto taskRequestDto) {
-        return modelMapper.map(taskRequestDto, Task.class);
+    private Task mapToEntity(TaskDto taskDto) {
+        return modelMapper.map(taskDto, Task.class);
+    }
+
+    private TaskDto mapToDto(Task task) {
+        return modelMapper.map(task, TaskDto.class);
     }
 }
