@@ -3,8 +3,8 @@ package com.christianj98.pomodoro.service;
 import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
+import com.christianj98.pomodoro.service.mapper.TaskMapper;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,20 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    private final ModelMapper modelMapper;
+    private final TaskMapper taskMapper;
 
     @Transactional
     public TaskDto createTask(TaskDto taskDto) {
-        final Task mappedTask = mapToEntity(taskDto);
-        final Task createdTask = taskRepository.save(mappedTask);
-        return mapToDto(createdTask);
-    }
-
-    private Task mapToEntity(TaskDto taskDto) {
-        return modelMapper.map(taskDto, Task.class);
-    }
-
-    private TaskDto mapToDto(Task task) {
-        return modelMapper.map(task, TaskDto.class);
+        final Task task = taskMapper.mapFrom(taskDto);
+        final Task createdTask = taskRepository.save(task);
+        return taskMapper.mapFrom(createdTask);
     }
 }
