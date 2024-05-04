@@ -1,5 +1,6 @@
 package com.christianj98.pomodoro.controller;
 
+import com.christianj98.pomodoro.controller.api.TaskApi;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
-public class TaskController {
+public class TaskController implements TaskApi {
 
     private final TaskService taskService;
 

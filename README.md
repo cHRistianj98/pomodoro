@@ -27,6 +27,11 @@ The application requires access to a PostgreSQL database. To configure the datab
 
 If setting the environment variable in your operating system, ensure that you have defined the `pomodoro.db.password` variable with the appropriate value.
 
+## Swagger endpoints
+
+You can reach Swagger endpoints using the following link:
+[Link to Swagger](localhost:8080/swagger-ui.html)
+
 ## Contact
 
 For any questions or issues with the application, please contact our technical team.
