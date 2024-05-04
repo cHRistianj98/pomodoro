@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -20,5 +22,9 @@ public class TaskService {
         final Task task = taskMapper.mapFrom(taskDto);
         final Task createdTask = taskRepository.save(task);
         return taskMapper.mapFrom(createdTask);
+    }
+
+    public List<TaskDto> getAllTasks() {
+        return taskMapper.mapFrom(taskRepository.findAll());
     }
 }

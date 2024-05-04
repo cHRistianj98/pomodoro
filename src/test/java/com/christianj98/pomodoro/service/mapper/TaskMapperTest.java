@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+
 import static org.mockito.Mockito.verify;
 
 /**
@@ -50,5 +52,17 @@ public class TaskMapperTest {
 
         // then
         verify(modelMapper).map(task, TaskDto.class);
+    }
+
+    @Test
+    public void mapFrom_shouldMapFromListOfTasksToListOfTaskDto() {
+        // given
+        var tasks = List.of(new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS));
+
+        // when
+        taskMapper.mapFrom(tasks);
+
+        // then
+        verify(modelMapper).map(tasks.get(0), TaskDto.class);
     }
 }

@@ -3,17 +3,13 @@ package com.christianj98.pomodoro.service;
 import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
+import com.christianj98.pomodoro.service.mapper.TaskMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,10 +19,8 @@ public class TaskServiceTest {
 
     @Mock
     private TaskRepository taskRepository;
-    @Spy
-    private ModelMapper modelMapper;
-    @Captor
-    private ArgumentCaptor<Task> taskCaptor;
+    @Mock
+    private TaskMapper taskMapper;
 
     @InjectMocks
     private TaskService taskService;
@@ -35,17 +29,28 @@ public class TaskServiceTest {
     public void shouldCreateTask() {
         // given
         TaskDto taskDto = createTaskRequestDto();
-        when(taskRepository.save(any())).thenReturn(new Task());
+        Task mappedTask = new Task();
+        Task createdTask = new Task();
+
+        when(taskMapper.mapFrom(taskDto)).thenReturn(mappedTask);
+        when(taskRepository.save(any())).thenReturn(createdTask);
 
         // when
         taskService.createTask(taskDto);
 
         // then
-        verify(taskRepository).save(taskCaptor.capture());
-        final Task createdTask = taskCaptor.getValue();
-        assertThat(createdTask).isNotNull();
-        assertThat(createdTask.getNumberOfPomodoroSessions()).isEqualTo(taskDto.getNumberOfPomodoroSessions());
-        assertThat(createdTask.getDescription()).isEqualTo(taskDto.getDescription());
+        verify(taskMapper).mapFrom(taskDto);
+        verify(taskRepository).save(mappedTask);
+        verify(taskMapper).mapFrom(createdTask);
+    }
+
+    @Test
+    public void shouldGetAllTasks() {
+        // when
+        taskService.getAllTasks();
+
+        // then
+        verify(taskRepository).findAll();
     }
 
     private TaskDto createTaskRequestDto() {
@@ -54,5 +59,4 @@ public class TaskServiceTest {
                 .numberOfPomodoroSessions(10)
                 .build();
     }
-
 }
