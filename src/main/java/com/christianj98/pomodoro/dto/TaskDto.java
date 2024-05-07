@@ -20,4 +20,6 @@ public class TaskDto {
     @NotNull
     @Min(value = 1, message = "The number of sessions must be greater than 0")
     private Integer numberOfPomodoroSessions;
+
+    private boolean done;
 }
