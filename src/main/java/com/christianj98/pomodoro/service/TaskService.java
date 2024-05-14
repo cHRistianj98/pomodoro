@@ -4,6 +4,7 @@ import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,12 @@ public class TaskService {
 
     public List<TaskDto> getAllTasks() {
         return taskMapper.mapFrom(taskRepository.findAll());
+    }
+
+    @Transactional
+    public TaskDto toggleTask(final long id) {
+        final Task task = taskRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        task.setDone(!task.isDone());
+        return taskMapper.mapFrom(task);
     }
 }
