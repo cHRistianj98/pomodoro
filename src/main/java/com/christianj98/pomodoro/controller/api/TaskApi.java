@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -26,4 +27,12 @@ public interface TaskApi {
             @ApiResponse(responseCode = "200", description = "Successful")
     })
     List<TaskDto> getAllTasks();
+
+    @Operation(
+            summary = "Toggle task",
+            description = "Change info if task was done or undone")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful")
+    })
+    TaskDto toggleTask(long id);
 }
