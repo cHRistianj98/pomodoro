@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class TaskDto {
 
+    private int id;
+
     @NotBlank
     private String description;
 
