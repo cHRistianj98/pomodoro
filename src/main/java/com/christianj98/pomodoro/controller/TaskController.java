@@ -3,6 +3,7 @@ package com.christianj98.pomodoro.controller;
 import com.christianj98.pomodoro.controller.api.TaskApi;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class TaskController implements TaskApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskDto createTask(@RequestBody TaskDto taskDto) {
+    public TaskDto createTask(@RequestBody @Valid TaskDto taskDto) {
         return taskService.createTask(taskDto);
     }
 

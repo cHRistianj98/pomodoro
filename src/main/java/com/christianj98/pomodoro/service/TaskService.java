@@ -4,6 +4,7 @@ import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ public class TaskService {
     private final TaskMapper taskMapper;
 
     @Transactional
-    public TaskDto createTask(TaskDto taskDto) {
+    public TaskDto createTask(@NotNull TaskDto taskDto) {
         final Task task = taskMapper.mapFrom(taskDto);
         final Task createdTask = taskRepository.save(task);
         return taskMapper.mapFrom(createdTask);

@@ -31,4 +31,7 @@ public class Task {
     private Integer numberOfPomodoroSessions;
 
     private boolean done;
+
+    @Min(value = 0, message = "The number of sessions must be equal or greater than 0")
+    private int currentPomodoroSession;
 }

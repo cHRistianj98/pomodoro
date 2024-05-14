@@ -21,6 +21,7 @@ public class TaskMapperTest {
 
     private static final String DESCRIPTION = "test task";
     private static final int NUMBER_OF_POMODORO_SESSIONS = 1;
+    private static final int CURRENT_POMODORO_SESSION = 0;
 
     @Mock
     private ModelMapper modelMapper;
@@ -45,7 +46,8 @@ public class TaskMapperTest {
     @Test
     public void mapFrom_shouldMapFromTaskToTaskDto() {
         // given
-        var task = new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS);
+        boolean done = true;
+        var task = new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS, done, CURRENT_POMODORO_SESSION);
 
         // when
         taskMapper.mapFrom(task);
@@ -57,7 +59,8 @@ public class TaskMapperTest {
     @Test
     public void mapFrom_shouldMapFromListOfTasksToListOfTaskDto() {
         // given
-        var tasks = List.of(new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS));
+        boolean done = true;
+        var tasks = List.of(new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS, done, CURRENT_POMODORO_SESSION));
 
         // when
         taskMapper.mapFrom(tasks);
