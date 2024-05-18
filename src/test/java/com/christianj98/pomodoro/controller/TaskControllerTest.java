@@ -3,11 +3,14 @@ package com.christianj98.pomodoro.controller;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -44,6 +47,16 @@ public class TaskControllerTest {
 
     @Test
     public void shouldGetAllTasks() throws Exception {
+        // when + then
+        mockMvc.perform(get("/api/tasks")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    @Sql("/com/christianj98/pomodoro/controller/sql/prepare_task_for_toggle.sql")
+    public void shouldToggleTask(boolean done) throws Exception {
         // when + then
         mockMvc.perform(get("/api/tasks")
                         .contentType(MediaType.APPLICATION_JSON))

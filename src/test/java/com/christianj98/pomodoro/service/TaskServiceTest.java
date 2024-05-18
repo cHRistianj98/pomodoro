@@ -4,12 +4,21 @@ import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,6 +33,9 @@ public class TaskServiceTest {
 
     @InjectMocks
     private TaskService taskService;
+
+    @Captor
+    private ArgumentCaptor<Task> taskCaptor;
 
     @Test
     public void shouldCreateTask() {
@@ -51,6 +63,34 @@ public class TaskServiceTest {
 
         // then
         verify(taskRepository).findAll();
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { true, false })
+    public void shouldToggleTask(boolean done) {
+        // given
+        final long id = 1L;
+        final Task task = new Task();
+        task.setDone(done);
+        when(taskRepository.findById(id)).thenReturn(Optional.of(task));
+
+        // when
+        taskService.toggleTask(id);
+
+        // then
+        verify(taskMapper).mapFrom(taskCaptor.capture());
+        assertThat(taskCaptor.getValue().isDone()).isEqualTo(!done);
+    }
+
+    @Test
+    public void toggleTask_shouldThrowExceptionIfEntityNotFound() {
+        // given
+        final long id = 1L;
+        when(taskRepository.findById(id)).thenReturn(Optional.empty());
+
+        // when/then
+        assertThatThrownBy(() -> taskService.toggleTask(id))
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     private TaskDto createTaskRequestDto() {
