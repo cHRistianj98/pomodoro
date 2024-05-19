@@ -50,6 +50,7 @@ public class TaskControllerTest {
         // when + then
         mockMvc.perform(get("/api/tasks")
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
     }
 
