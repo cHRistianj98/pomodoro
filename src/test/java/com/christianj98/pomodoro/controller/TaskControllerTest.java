@@ -3,18 +3,18 @@ package com.christianj98.pomodoro.controller;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -53,13 +53,16 @@ public class TaskControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @ParameterizedTest
-    @ValueSource(booleans = {true, false})
-    @Sql("/com/christianj98/pomodoro/controller/sql/prepare_task_for_toggle.sql")
-    public void shouldToggleTask(boolean done) throws Exception {
+    @Test
+    public void shouldToggleTask() throws Exception {
+        // given
+        final long taskId = 100L;
+
         // when + then
-        mockMvc.perform(get("/api/tasks")
+        mockMvc.perform(patch("/api/tasks/" + taskId)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.done").value(true));
     }
 }

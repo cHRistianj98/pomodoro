@@ -12,10 +12,12 @@
 	<artifactId>pomodoro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pomodoro</name>
-	<description>Backend for pomodor application</description>
+	<description>Backend for pomodoro application</description>
 
 	<properties>
 		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<modelmapper.version>3.1.1</modelmapper.version>
 		<springdoc.version>2.0.2</springdoc.version>
 	</properties>
@@ -38,12 +40,17 @@
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
 		</dependency>
+		<!-- Swagger -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${springdoc.version}</version>
 		</dependency>
-
+		<!-- Liquibase Core -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
