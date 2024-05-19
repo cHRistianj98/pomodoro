@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="202405191210_create_task_for_toggle" author="kania">
+        <insert tableName="tasks">
+            <column name="id" value="100" />
+            <column name="description" value="Task for toggle" />
+            <column name="number_of_pomodoro_sessions" value="10" />
+            <column name="done" value="false" />
+            <column name="current_pomodoro_session" value="0" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
