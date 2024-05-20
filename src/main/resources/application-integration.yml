@@ -11,3 +11,4 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     change-log: classpath:db/changelog/integration/db.changelog-integration.xml
+    contexts: integration
