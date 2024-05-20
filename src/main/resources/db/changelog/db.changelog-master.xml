@@ -6,4 +6,6 @@
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
 
     <include file="/db/changelog/202405191210_initial_schema.xml" />
+    <include file="/db/changelog/202405201947_create_task_test_tasks.xml" />
+
 </databaseChangeLog>
