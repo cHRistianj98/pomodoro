@@ -7,5 +7,8 @@
 
     <include file="/db/changelog/202405191210_initial_schema.xml" />
     <include file="/db/changelog/202405201947_create_task_test_tasks.xml" />
+    <include file="/db/changelog/202405261937_create_users_table.xml" />
+    <include file="/db/changelog/202405261940_create_roles_table.xml" />
+    <include file="/db/changelog/202405261942_create_users_roles_table.xml" />
 
 </databaseChangeLog>
