@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="202405261942_create_test_user" author="kania">
+                <insert tableName="users">
+                    <column name="id" value="1"/>
+                    <column name="username" value="test"/>
+                    <column name="password" value="$2a$10$3bdZfR6otQhzaTMa/YXxtOjTKvlrcT524jKwecFctjRJIvbZo4aRW"/>
+                </insert>
+    </changeSet>
+
+</databaseChangeLog>
