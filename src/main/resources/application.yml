@@ -2,12 +2,15 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/pomodoro
     username: pomodoro
-    password: ${pomodoro.db.password}
+    password: pomodoro
   jpa:
+    open-in-view: false
     hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: update
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
+
+jwt:
+  expiration:
+    time: 1800000
+  secret: '357638792F423F4428472B4B6250655368566D597133743677397A2443264628'

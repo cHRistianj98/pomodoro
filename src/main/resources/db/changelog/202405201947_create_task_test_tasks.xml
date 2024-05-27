@@ -7,21 +7,18 @@
 
     <changeSet id="202405201947_create_task_test_tasks" author="kania">
         <insert tableName="tasks">
-            <column name="id" value="1" />
             <column name="description" value="Pair Programming" />
             <column name="number_of_pomodoro_sessions" value="10" />
             <column name="done" value="false" />
             <column name="current_pomodoro_session" value="0" />
         </insert>
         <insert tableName="tasks">
-            <column name="id" value="2" />
             <column name="description" value="Write a book" />
             <column name="number_of_pomodoro_sessions" value="20" />
             <column name="done" value="false" />
             <column name="current_pomodoro_session" value="0" />
         </insert>
         <insert tableName="tasks">
-            <column name="id" value="3" />
             <column name="description" value="Learn foreign language" />
             <column name="number_of_pomodoro_sessions" value="30" />
             <column name="done" value="true" />

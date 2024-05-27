@@ -18,10 +18,12 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final UserService userService;
 
     @Transactional
     public TaskDto createTask(@NotNull TaskDto taskDto) {
         final Task task = taskMapper.mapFrom(taskDto);
+        task.setUser(userService.getCurrentUser());
         final Task createdTask = taskRepository.save(task);
         return taskMapper.mapFrom(createdTask);
     }

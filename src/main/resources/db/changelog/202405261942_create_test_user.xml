@@ -7,7 +7,6 @@
 
     <changeSet id="202405261942_create_test_user" author="kania">
                 <insert tableName="users">
-                    <column name="id" value="1"/>
                     <column name="username" value="test"/>
                     <column name="password" value="$2a$10$3bdZfR6otQhzaTMa/YXxtOjTKvlrcT524jKwecFctjRJIvbZo4aRW"/>
                 </insert>
