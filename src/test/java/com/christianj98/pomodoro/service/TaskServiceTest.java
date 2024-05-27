@@ -27,9 +27,11 @@ import static org.mockito.Mockito.when;
 public class TaskServiceTest {
 
     @Mock
+    private TaskMapper taskMapper;
+    @Mock
     private TaskRepository taskRepository;
     @Mock
-    private TaskMapper taskMapper;
+    private UserService userService;
 
     @InjectMocks
     private TaskService taskService;
@@ -40,9 +42,9 @@ public class TaskServiceTest {
     @Test
     public void shouldCreateTask() {
         // given
-        TaskDto taskDto = createTaskRequestDto();
-        Task mappedTask = new Task();
-        Task createdTask = new Task();
+        final var taskDto = createTaskDto();
+        final var mappedTask = new Task();
+        final var createdTask = new Task();
 
         when(taskMapper.mapFrom(taskDto)).thenReturn(mappedTask);
         when(taskRepository.save(any())).thenReturn(createdTask);
@@ -58,11 +60,15 @@ public class TaskServiceTest {
 
     @Test
     public void shouldGetAllTasks() {
+        // given
+        final Long userId = 1L;
+        when(userService.getCurrentUserId()).thenReturn(userId);
+
         // when
         taskService.getAllTasks();
 
         // then
-        verify(taskRepository).findAll();
+        verify(taskRepository).findByUserId(userId);
     }
 
     @ParameterizedTest
@@ -93,7 +99,7 @@ public class TaskServiceTest {
                 .isInstanceOf(EntityNotFoundException.class);
     }
 
-    private TaskDto createTaskRequestDto() {
+    private TaskDto createTaskDto() {
         return TaskDto.builder()
                 .description("test description")
                 .numberOfPomodoroSessions(10)

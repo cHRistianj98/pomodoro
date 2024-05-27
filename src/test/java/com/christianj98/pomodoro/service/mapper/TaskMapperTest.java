@@ -2,6 +2,7 @@ package com.christianj98.pomodoro.service.mapper;
 
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
+import com.christianj98.pomodoro.model.UserInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +26,8 @@ public class TaskMapperTest {
 
     @Mock
     private ModelMapper modelMapper;
+    @Mock
+    private UserInfo userInfo;
     @InjectMocks
     private TaskMapper taskMapper;
 
@@ -47,7 +50,7 @@ public class TaskMapperTest {
     public void mapFrom_shouldMapFromTaskToTaskDto() {
         // given
         boolean done = true;
-        var task = new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS, done, CURRENT_POMODORO_SESSION);
+        var task = new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS, done, CURRENT_POMODORO_SESSION, userInfo);
 
         // when
         taskMapper.mapFrom(task);
@@ -60,7 +63,7 @@ public class TaskMapperTest {
     public void mapFrom_shouldMapFromListOfTasksToListOfTaskDto() {
         // given
         boolean done = true;
-        var tasks = List.of(new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS, done, CURRENT_POMODORO_SESSION));
+        var tasks = List.of(new Task(1L, DESCRIPTION, NUMBER_OF_POMODORO_SESSIONS, done, CURRENT_POMODORO_SESSION, userInfo));
 
         // when
         taskMapper.mapFrom(tasks);

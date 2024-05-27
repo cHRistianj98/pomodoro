@@ -29,7 +29,8 @@ public class TaskService {
     }
 
     public List<TaskDto> getAllTasks() {
-        return taskMapper.mapFrom(taskRepository.findAll());
+        final Long currentUserId = userService.getCurrentUserId();
+        return taskMapper.mapFrom(taskRepository.findByUserId(currentUserId));
     }
 
     @Transactional
