@@ -1,6 +1,7 @@
 package com.christianj98.pomodoro.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,4 +44,17 @@ public class UserInfo {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<UserRole> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Task> tasks = new HashSet<>();
+
+    public void addTask(Task task) {
+        tasks.add(task);
+        task.setUser(this);
+    }
+
+    public void removeTask(Task task) {
+        tasks.remove(task);
+        task.setUser(null);
+    }
 }

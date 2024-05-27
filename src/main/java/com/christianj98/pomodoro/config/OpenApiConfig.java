@@ -1,4 +1,4 @@
-package com.christianj98.pomodoro.security;
+package com.christianj98.pomodoro.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
