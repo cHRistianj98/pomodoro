@@ -7,6 +7,7 @@ import com.christianj98.pomodoro.service.mapper.TaskMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class TaskService {
     private final UserService userService;
 
     @Transactional
+    @PreAuthorize("hasRole('USER')")
     public TaskDto createTask(@NotNull TaskDto taskDto) {
         final Task task = taskMapper.mapFrom(taskDto);
         task.setUser(userService.getCurrentUser());
@@ -28,12 +30,14 @@ public class TaskService {
         return taskMapper.mapFrom(createdTask);
     }
 
+    @PreAuthorize("hasRole('USER')")
     public List<TaskDto> getAllTasks() {
         final Long currentUserId = userService.getCurrentUserId();
         return taskMapper.mapFrom(taskRepository.findByUserId(currentUserId));
     }
 
     @Transactional
+    @PreAuthorize("hasRole('USER')")
     public TaskDto toggleTask(final long id) {
         final Task task = taskRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         task.setDone(!task.isDone());

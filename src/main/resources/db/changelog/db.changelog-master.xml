@@ -12,5 +12,7 @@
     <include file="/db/changelog/202405261942_create_users_roles_table.xml" />
     <include file="/db/changelog/202405261942_create_test_user.xml" />
     <include file="/db/changelog/202405271333_add_user_id_column_for_task.xml" />
+    <include file="/db/changelog/202405281712_insert_user_admin_roles.xml" />
+    <include file="/db/changelog/202405281716_assign_user_role_to_test_user.xml" />
 
 </databaseChangeLog>
