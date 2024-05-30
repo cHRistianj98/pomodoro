@@ -2,9 +2,9 @@ package com.christianj98.pomodoro.service;
 
 import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
+import com.christianj98.pomodoro.exception.ApplicationException;
 import com.christianj98.pomodoro.model.Task;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,7 +39,9 @@ public class TaskService {
     @Transactional
     @PreAuthorize("hasRole('USER')")
     public TaskDto toggleTask(final long id) {
-        final Task task = taskRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        final Long currentUserId = userService.getCurrentUserId();
+        final Task task = taskRepository.findByIdAndUserId(id, currentUserId)
+                .orElseThrow(() -> new ApplicationException("Task not found!"));
         task.setDone(!task.isDone());
         return taskMapper.mapFrom(task);
     }
