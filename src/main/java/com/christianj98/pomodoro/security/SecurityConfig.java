@@ -27,6 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private static final String REGISTER_PATH = "/api/v1/register";
     private static final String LOGIN_PATH = "/api/v1/login";
     private static final String SWAGGER_UI_PATH = "/swagger-ui/**";
     private static final String SWAGGER_API_DOCS = "/v3/api-docs/**";
@@ -38,7 +39,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers(LOGIN_PATH, SWAGGER_UI_PATH, SWAGGER_API_DOCS).permitAll()
+                        .requestMatchers(REGISTER_PATH, LOGIN_PATH, SWAGGER_UI_PATH, SWAGGER_API_DOCS).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement

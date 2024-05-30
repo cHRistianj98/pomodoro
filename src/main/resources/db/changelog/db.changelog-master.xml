@@ -14,5 +14,6 @@
     <include file="/db/changelog/202405271333_add_user_id_column_for_task.xml" />
     <include file="/db/changelog/202405281712_insert_user_admin_roles.xml" />
     <include file="/db/changelog/202405281716_assign_user_role_to_test_user.xml" />
+    <include file="/db/changelog/202405301142_add_unique_constraint_for_username_column.xml" />
 
 </databaseChangeLog>
