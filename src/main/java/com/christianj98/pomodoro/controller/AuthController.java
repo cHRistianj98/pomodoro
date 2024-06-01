@@ -1,5 +1,6 @@
 package com.christianj98.pomodoro.controller;
 
+import com.christianj98.pomodoro.controller.api.AuthApi;
 import com.christianj98.pomodoro.dto.AuthRequestDto;
 import com.christianj98.pomodoro.dto.JwtResponseDto;
 import com.christianj98.pomodoro.dto.RegisterRequestDto;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthApi {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
