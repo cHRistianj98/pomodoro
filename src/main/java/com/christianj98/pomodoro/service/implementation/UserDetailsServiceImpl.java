@@ -1,4 +1,4 @@
-package com.christianj98.pomodoro.service;
+package com.christianj98.pomodoro.service.implementation;
 
 import com.christianj98.pomodoro.dao.UserRepository;
 import com.christianj98.pomodoro.model.CustomUserDetails;

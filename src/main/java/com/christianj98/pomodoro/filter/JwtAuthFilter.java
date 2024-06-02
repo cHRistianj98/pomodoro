@@ -1,7 +1,7 @@
 package com.christianj98.pomodoro.filter;
 
 import com.christianj98.pomodoro.service.JwtService;
-import com.christianj98.pomodoro.service.UserDetailsServiceImpl;
+import com.christianj98.pomodoro.service.implementation.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

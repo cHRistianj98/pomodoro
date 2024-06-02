@@ -1,8 +1,9 @@
-package com.christianj98.pomodoro.service;
+package com.christianj98.pomodoro.service.implementation;
 
 import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.model.Task;
+import com.christianj98.pomodoro.service.UserService;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class TaskServiceTest {
+public class TaskServiceImplTest {
 
     @Mock
     private TaskMapper taskMapper;
@@ -34,7 +35,7 @@ public class TaskServiceTest {
     private UserService userService;
 
     @InjectMocks
-    private TaskService taskService;
+    private TaskServiceImpl taskService;
 
     @Captor
     private ArgumentCaptor<Task> taskCaptor;
@@ -72,7 +73,7 @@ public class TaskServiceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(booleans = { true, false })
+    @ValueSource(booleans = {true, false})
     public void shouldToggleTask(boolean done) {
         // given
         final long id = 1L;

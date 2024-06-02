@@ -2,7 +2,7 @@ package com.christianj98.pomodoro.security;
 
 import com.christianj98.pomodoro.dao.UserRepository;
 import com.christianj98.pomodoro.filter.JwtAuthFilter;
-import com.christianj98.pomodoro.service.UserDetailsServiceImpl;
+import com.christianj98.pomodoro.service.implementation.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
