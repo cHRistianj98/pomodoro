@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface TaskApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created")
     })
-    TaskDto createTask(TaskDto taskDto);
+    ResponseEntity<TaskDto> createTask(TaskDto taskDto);
 
     @Operation(
             summary = "Get all tasks",

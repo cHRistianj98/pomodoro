@@ -6,6 +6,7 @@ import com.christianj98.pomodoro.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
+
+import static com.christianj98.pomodoro.utils.UrlUtils.getUriForTaskResource;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -26,8 +30,10 @@ public class TaskController implements TaskApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskDto createTask(@RequestBody @Valid TaskDto taskDto) {
-        return taskService.createTask(taskDto);
+    public ResponseEntity<TaskDto> createTask(@RequestBody @Valid TaskDto taskDto) {
+        final TaskDto createdTaskDto = taskService.createTask(taskDto);
+        final URI location = getUriForTaskResource(createdTaskDto.getId());
+        return ResponseEntity.created(location).body(createdTaskDto);
     }
 
     @GetMapping
