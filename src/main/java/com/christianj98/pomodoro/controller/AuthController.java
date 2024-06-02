@@ -6,6 +6,7 @@ import com.christianj98.pomodoro.dto.JwtResponseDto;
 import com.christianj98.pomodoro.dto.RegisterRequestDto;
 import com.christianj98.pomodoro.service.JwtService;
 import com.christianj98.pomodoro.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +27,7 @@ public class AuthController implements AuthApi {
     private final UserService userService;
 
     @PostMapping("/login")
-    public JwtResponseDto authenticateAndGetToken(@RequestBody AuthRequestDto authRequestDto) {
+    public JwtResponseDto authenticateAndGetToken(@RequestBody @Valid AuthRequestDto authRequestDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.getUsername(),
                 authRequestDto.getPassword()));
         if (authentication.isAuthenticated()) {
@@ -39,7 +40,7 @@ public class AuthController implements AuthApi {
     }
 
     @PostMapping("/register")
-    public void registerUser(@RequestBody RegisterRequestDto registerRequestDto) {
+    public void registerUser(@RequestBody @Valid RegisterRequestDto registerRequestDto) {
         userService.createUser(registerRequestDto);
     }
 }
