@@ -16,13 +16,25 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+    private static final List<String> EXCLUDED_PATHS = List.of(
+            "/swagger-ui/.*",
+            "/v3/api-docs/.*"
+    );
+
     private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Override
+    protected boolean shouldNotFilter(final HttpServletRequest request) {
+        final String path = request.getRequestURI();
+        return EXCLUDED_PATHS.stream().anyMatch(path::matches);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
