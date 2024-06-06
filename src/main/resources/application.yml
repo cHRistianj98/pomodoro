@@ -5,3 +5,6 @@ application:
 spring:
   profiles:
     active: @spring.profiles.active@
+
+springdoc:
+  default-produces-media-type: application/json

@@ -28,7 +28,7 @@ public class AuthController implements AuthApi {
 
     @PostMapping("/login")
     public JwtResponseDto authenticateAndGetToken(@RequestBody @Valid AuthRequestDto authRequestDto) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.getUsername(),
+        final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.getUsername(),
                 authRequestDto.getPassword()));
         if (authentication.isAuthenticated()) {
             return JwtResponseDto.builder()

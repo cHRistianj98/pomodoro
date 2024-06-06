@@ -22,7 +22,7 @@ import java.util.List;
 import static com.christianj98.pomodoro.utils.UrlUtils.getUriForTaskResource;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/api/v1/tasks")
 @RequiredArgsConstructor
 public class TaskController implements TaskApi {
 
