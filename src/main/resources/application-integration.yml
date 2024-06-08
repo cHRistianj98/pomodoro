@@ -8,7 +8,12 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
   liquibase:
     change-log: classpath:db/changelog/integration/db.changelog-integration.xml
     contexts: integration
+
+jwt:
+  expiration:
+    time: 1800000
+  secret: '357638792F423F4428472B4B6250655368566D597133743677397A2443264628'

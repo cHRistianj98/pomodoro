@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
 
-    <include file="/db/changelog/integration/202405191210_initial_schema.xml" />
+    <include file="/db/changelog/db.changelog-master.xml" />
     <include file="/db/changelog/integration/202405191222_create_task_for_toggle.xml" />
 
 </databaseChangeLog>
