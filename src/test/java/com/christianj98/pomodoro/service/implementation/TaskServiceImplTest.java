@@ -2,10 +2,10 @@ package com.christianj98.pomodoro.service.implementation;
 
 import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
+import com.christianj98.pomodoro.exception.TaskNotFoundException;
 import com.christianj98.pomodoro.model.Task;
 import com.christianj98.pomodoro.service.UserService;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -76,13 +76,15 @@ public class TaskServiceImplTest {
     @ValueSource(booleans = {true, false})
     public void shouldToggleTask(boolean done) {
         // given
-        final long id = 1L;
+        final long taskId = 1L;
+        final long userId = 1L;
         final Task task = new Task();
         task.setDone(done);
-        when(taskRepository.findById(id)).thenReturn(Optional.of(task));
+        when(userService.getCurrentUserId()).thenReturn(userId);
+        when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.of(task));
 
         // when
-        taskService.toggleTask(id);
+        taskService.toggleTask(taskId);
 
         // then
         verify(taskMapper).mapFrom(taskCaptor.capture());
@@ -92,12 +94,14 @@ public class TaskServiceImplTest {
     @Test
     public void toggleTask_shouldThrowExceptionIfEntityNotFound() {
         // given
-        final long id = 1L;
-        when(taskRepository.findById(id)).thenReturn(Optional.empty());
+        final long taskId = 1L;
+        final long userId = 1L;
+        when(userService.getCurrentUserId()).thenReturn(userId);
+        when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.empty());
 
         // when/then
-        assertThatThrownBy(() -> taskService.toggleTask(id))
-                .isInstanceOf(EntityNotFoundException.class);
+        assertThatThrownBy(() -> taskService.toggleTask(taskId))
+                .isInstanceOf(TaskNotFoundException.class);
     }
 
     private TaskDto createTaskDto() {

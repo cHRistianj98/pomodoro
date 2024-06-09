@@ -27,7 +27,7 @@ public class UrlUtilsTest {
         try (MockedStatic<ServletUriComponentsBuilder> mockedBuilder = mockStatic(ServletUriComponentsBuilder.class)) {
             // given
             final var taskId = 1L;
-            final var expectedUriString = "http://localhost/api/v1/333/1";
+            final var expectedUriString = "http://localhost/api/v1/tasks/1";
             when(servletUriComponentsBuilder.path(anyString())).thenReturn(servletUriComponentsBuilder);
             when(servletUriComponentsBuilder.toUriString()).thenReturn(expectedUriString);
             mockedBuilder.when(ServletUriComponentsBuilder::fromCurrentContextPath).thenReturn(servletUriComponentsBuilder);
