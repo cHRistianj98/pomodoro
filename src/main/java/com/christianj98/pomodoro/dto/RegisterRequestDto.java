@@ -5,8 +5,6 @@ import jakarta.validation.constraints.Pattern;
 
 public record RegisterRequestDto(
         @NotBlank(message = "Username cannot be blank")
-        @Pattern(regexp = "^[A-Z][a-z]*$",
-                message = "Username must start with an uppercase letter followed by lowercase letters")
         String username,
         @NotBlank(message = "Password cannot be blank")
         @Pattern(regexp = "^(?=.*[A-Z])(?=.*[.,!@]).{8,}$",

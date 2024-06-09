@@ -8,6 +8,7 @@ import com.christianj98.pomodoro.service.LoginService;
 import com.christianj98.pomodoro.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,13 +24,14 @@ public class AuthController implements AuthApi {
     private final UserService userService;
 
     @PostMapping("/login")
-    public JwtResponseDto authenticateAndGetToken(@RequestBody @Valid AuthRequestDto authRequestDto) {
+    public ResponseEntity<JwtResponseDto> authenticateAndGenerateToken(@RequestBody @Valid AuthRequestDto authRequestDto) {
         final Authentication authentication = loginService.authenticate(authRequestDto);
-        return loginService.generateTokenForAuthenticatedUser(authentication, authRequestDto.getUsername());
+        return ResponseEntity.ok(loginService.generateTokenForAuthenticatedUser(authentication, authRequestDto.getUsername()));
     }
 
     @PostMapping("/register")
-    public void registerUser(@RequestBody @Valid RegisterRequestDto registerRequestDto) {
+    public ResponseEntity<Void> registerUser(@RequestBody @Valid RegisterRequestDto registerRequestDto) {
         userService.createUser(registerRequestDto);
+        return ResponseEntity.noContent().build();
     }
 }

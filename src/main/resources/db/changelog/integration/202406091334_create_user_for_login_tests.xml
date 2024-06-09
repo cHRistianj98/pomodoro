@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="202406091334_create_user_for_login_tests" author="kania">
+        <insert tableName="users">
+            <column name="id" value="100" />
+            <column name="username" value="login-integration-username" />
+            <column name="password" value="$2a$10$S/D8BtfGGIAFUqcDjy0fb.booqQUDMwmP2vJ.CRTVqFBxSU/1RHJm" />
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="100" />
+            <column name="role_id" value="1" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
