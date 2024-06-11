@@ -29,7 +29,6 @@ public class TaskController implements TaskApi {
     private final TaskService taskService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TaskDto> createTask(@RequestBody @Valid TaskDto taskDto) {
         final TaskDto createdTaskDto = taskService.createTask(taskDto);
         final URI location = getUriForTaskResource(createdTaskDto.getId());
