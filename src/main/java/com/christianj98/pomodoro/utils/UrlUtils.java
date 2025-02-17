@@ -14,6 +14,5 @@ public class UrlUtils {
         return URI.create(ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(TASKS_PATH + id)
                 .toUriString());
-
     }
 }
