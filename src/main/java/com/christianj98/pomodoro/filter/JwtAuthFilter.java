@@ -27,8 +27,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             "/v3/api-docs/.*"
     );
 
-    private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final JwtService jwtService;
 
     @Override
     protected boolean shouldNotFilter(final HttpServletRequest request) {
@@ -56,7 +56,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }
