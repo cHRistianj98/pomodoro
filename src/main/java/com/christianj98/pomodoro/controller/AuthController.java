@@ -46,4 +46,5 @@ public class AuthController implements AuthApi {
         final var errorResponse = new ErrorResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED, exception.getClass().toString());
         return new ResponseEntity<>(errorResponse, errorResponse.httpStatus());
     }
+
 }
