@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class TaskDto {
+
     @Schema(hidden = true)
     private Long id;
 
