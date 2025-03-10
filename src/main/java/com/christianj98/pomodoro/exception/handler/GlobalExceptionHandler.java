@@ -39,4 +39,5 @@ public class GlobalExceptionHandler {
         final var errorResponse = new ErrorResponse(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, exception.getClass().toString());
         return new ResponseEntity<>(errorResponse, errorResponse.httpStatus());
     }
+
 }
