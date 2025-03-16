@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    @Override
     @NotNull
     List<Task> findAll();
     List<Task> findByUserId(Long userId);
