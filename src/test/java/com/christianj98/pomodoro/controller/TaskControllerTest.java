@@ -27,7 +27,6 @@ public class TaskControllerTest extends IntegrationTestCleanup {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
 
