@@ -44,7 +44,7 @@ public class TaskController implements TaskApi {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskDto toggleTask(@PathVariable long id) {
-        return taskService.toggleTask(id);
+    public TaskDto toggleTask(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
+        return taskService.toggleTask(id, user.getId());
     }
 }

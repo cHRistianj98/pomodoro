@@ -35,5 +35,5 @@ public interface TaskApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful")
     })
-    TaskDto toggleTask(long id);
+    TaskDto toggleTask(Long id, CustomUserDetails user);
 }

@@ -59,6 +59,7 @@ public class TaskControllerTest extends IntegrationTestCleanup {
 
         // when + then
         mockMvc.perform(post("/api/v1/tasks")
+                        .with(user(customUser))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(taskDto)))
                 .andExpect(status().isCreated());
@@ -77,10 +78,11 @@ public class TaskControllerTest extends IntegrationTestCleanup {
     @Test
     public void shouldToggleTask() throws Exception {
         // given
-        final long taskId = 100L;
+        final var taskId = 100L;
 
         // when + then
-        mockMvc.perform(patch("/api/v1/tasks" + taskId)
+        mockMvc.perform(patch("/api/v1/tasks/" + taskId)
+                        .with(user(customUser))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

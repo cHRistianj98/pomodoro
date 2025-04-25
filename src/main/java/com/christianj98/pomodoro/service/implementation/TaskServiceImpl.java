@@ -39,9 +39,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Transactional
     @PreAuthorize("hasRole('USER')")
-    public TaskDto toggleTask(final long id) {
-        final Long currentUserId = userService.getCurrentUserId();
-        final Task task = taskRepository.findByIdAndUserId(id, currentUserId)
+    public TaskDto toggleTask(Long taskId, Long userId) {
+        final Task task = taskRepository.findByIdAndUserId(taskId, userId)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found!"));
         task.setDone(!task.isDone());
         return taskMapper.mapFrom(task);

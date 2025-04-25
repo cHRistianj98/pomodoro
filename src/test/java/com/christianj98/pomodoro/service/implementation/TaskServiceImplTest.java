@@ -75,15 +75,16 @@ public class TaskServiceImplTest {
     @ValueSource(booleans = {true, false})
     public void shouldToggleTask(boolean done) {
         // given
-        final long taskId = 1L;
-        final long userId = 1L;
-        final Task task = new Task();
-        task.setDone(done);
-        when(userService.getCurrentUserId()).thenReturn(userId);
+        final var taskId = 1L;
+        final var userId = 1L;
+        final var task = Task.builder()
+                .id(taskId)
+                .done(done)
+                .build();
         when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.of(task));
 
         // when
-        taskService.toggleTask(taskId);
+        taskService.toggleTask(taskId, userId);
 
         // then
         verify(taskMapper).mapFrom(taskCaptor.capture());
@@ -95,11 +96,10 @@ public class TaskServiceImplTest {
         // given
         final long taskId = 1L;
         final long userId = 1L;
-        when(userService.getCurrentUserId()).thenReturn(userId);
         when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.empty());
 
         // when/then
-        assertThatThrownBy(() -> taskService.toggleTask(taskId))
+        assertThatThrownBy(() -> taskService.toggleTask(taskId, userId))
                 .isInstanceOf(TaskNotFoundException.class);
     }
 
