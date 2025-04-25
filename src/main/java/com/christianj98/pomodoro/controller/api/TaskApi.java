@@ -1,6 +1,7 @@
 package com.christianj98.pomodoro.controller.api;
 
 import com.christianj98.pomodoro.dto.TaskDto;
+import com.christianj98.pomodoro.model.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,7 +27,7 @@ public interface TaskApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful")
     })
-    List<TaskDto> getAllTasks();
+    List<TaskDto> getAllTasks(CustomUserDetails user);
 
     @Operation(
             summary = "Toggle task",

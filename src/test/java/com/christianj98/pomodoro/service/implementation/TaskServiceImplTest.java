@@ -63,10 +63,9 @@ public class TaskServiceImplTest {
     public void shouldGetAllTasks() {
         // given
         final Long userId = 1L;
-        when(userService.getCurrentUserId()).thenReturn(userId);
 
         // when
-        taskService.getAllTasks();
+        taskService.getAllTasks(userId);
 
         // then
         verify(taskRepository).findByUserId(userId);

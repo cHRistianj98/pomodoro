@@ -2,12 +2,14 @@ package com.christianj98.pomodoro.controller;
 
 import com.christianj98.pomodoro.controller.api.TaskApi;
 import com.christianj98.pomodoro.dto.TaskDto;
+import com.christianj98.pomodoro.model.CustomUserDetails;
 import com.christianj98.pomodoro.service.TaskService;
 import com.christianj98.pomodoro.utils.UrlUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +38,8 @@ public class TaskController implements TaskApi {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TaskDto> getAllTasks() {
-        return taskService.getAllTasks();
+    public List<TaskDto> getAllTasks(@AuthenticationPrincipal CustomUserDetails user) {
+        return taskService.getAllTasks(user.getId());
     }
 
     @PatchMapping("/{id}")

@@ -33,9 +33,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @PreAuthorize("hasRole('USER')")
-    public List<TaskDto> getAllTasks() {
-        final Long currentUserId = userService.getCurrentUserId();
-        return taskMapper.mapFrom(taskRepository.findByUserId(currentUserId));
+    public List<TaskDto> getAllTasks(Long userId) {
+        return taskMapper.mapFrom(taskRepository.findByUserId(userId));
     }
 
     @Transactional

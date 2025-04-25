@@ -2,9 +2,12 @@ package com.christianj98.pomodoro.controller;
 
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.integration.IntegrationTestCleanup;
+import com.christianj98.pomodoro.model.CustomUserDetails;
+import com.christianj98.pomodoro.model.UserInfo;
+import com.christianj98.pomodoro.model.UserRole;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
+import java.util.Set;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -30,6 +35,18 @@ public class TaskControllerTest extends IntegrationTestCleanup {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private CustomUserDetails customUser;
+
+    @BeforeEach
+    public void setUp() {
+        UserInfo user = new UserInfo();
+        user.setRoles(Set.of(UserRole.builder().id(1L).name("ROLE_USER").build()));
+        customUser = new CustomUserDetails(user);
+        customUser.setId(1L);
+        customUser.setUsername("testUser");
+        customUser.setPassword("testPassword");
+    }
+
     @Test
     public void shouldCreateTask() throws Exception {
         // given
@@ -41,7 +58,7 @@ public class TaskControllerTest extends IntegrationTestCleanup {
                 .build();
 
         // when + then
-        mockMvc.perform(post("/api/tasks")
+        mockMvc.perform(post("/api/v1/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(taskDto)))
                 .andExpect(status().isCreated());
@@ -50,7 +67,8 @@ public class TaskControllerTest extends IntegrationTestCleanup {
     @Test
     public void shouldGetAllTasks() throws Exception {
         // when + then
-        mockMvc.perform(get("/api/tasks")
+        mockMvc.perform(get("/api/v1/tasks")
+                        .with(user(customUser))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -62,7 +80,7 @@ public class TaskControllerTest extends IntegrationTestCleanup {
         final long taskId = 100L;
 
         // when + then
-        mockMvc.perform(patch("/api/tasks/" + taskId)
+        mockMvc.perform(patch("/api/v1/tasks" + taskId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

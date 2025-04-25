@@ -8,10 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
 @NoArgsConstructor
+@SuperBuilder
 @Table(name = "roles")
 public class UserRole {
 

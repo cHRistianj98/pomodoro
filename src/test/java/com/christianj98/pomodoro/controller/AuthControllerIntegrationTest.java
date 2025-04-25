@@ -34,7 +34,7 @@ public class AuthControllerIntegrationTest {
                 .password("login-integration-password")
                 .build();
 
-        // when // then
+        // when/then
         mockMvc.perform(post("/api/v1/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(authRequestDto)))
