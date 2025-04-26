@@ -20,6 +20,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,6 +41,8 @@ public class JwtAuthFilterTest {
     private FilterChain filterChain;
     @Mock
     private UserDetails userDetails;
+    @Mock
+    private UserDetailsServiceImpl userDetailsService;
 
     @InjectMocks
     private JwtAuthFilter jwtAuthFilter;
@@ -100,10 +104,12 @@ public class JwtAuthFilterTest {
     void doFilterInternal_invalidToken_doesNotAuthenticateUser() throws ServletException, IOException {
         // given
         final var token = "invalidToken";
-
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
         when(jwtService.extractUsername(token)).thenReturn("validUser");
-        when(jwtService.validateToken(token, userDetails)).thenReturn(false);
+        lenient().when(userDetailsService.loadUserByUsername("validUser"))
+                .thenReturn(userDetails);
+        lenient().when(jwtService.validateToken(eq(token), eq(userDetails)))
+                .thenReturn(false);
 
         // when
         jwtAuthFilter.doFilterInternal(request, response, filterChain);
