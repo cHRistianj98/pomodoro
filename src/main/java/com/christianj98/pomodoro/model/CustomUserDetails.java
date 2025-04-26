@@ -13,6 +13,7 @@ public class CustomUserDetails extends UserInfo implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
 
     public CustomUserDetails(UserInfo user) {
+        this.setId(user.getId());
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.authorities = user.getRoles().stream()
