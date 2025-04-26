@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/christianj98/pomodoro/actions/workflows/ci.yml/badge.svg)](https://github.com/christianj98/pomodoro/actions/workflows/ci.yml)
+
 # Pomodoro Application - Backend
 
 ## Pomodoro Technique
