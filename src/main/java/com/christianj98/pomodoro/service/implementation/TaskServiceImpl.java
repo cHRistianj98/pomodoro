@@ -5,7 +5,6 @@ import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.exception.TaskNotFoundException;
 import com.christianj98.pomodoro.model.Task;
 import com.christianj98.pomodoro.service.TaskService;
-import com.christianj98.pomodoro.service.UserService;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +20,11 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
-    private final UserService userService;
 
     @Transactional
     @PreAuthorize("hasRole('USER')")
     public TaskDto createTask(@NotNull TaskDto taskDto) {
         final Task task = taskMapper.mapFrom(taskDto);
-        task.setUser(userService.getCurrentUser());
         final Task createdTask = taskRepository.save(task);
         return taskMapper.mapFrom(createdTask);
     }

@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedBy;
 
 @Entity
 @Getter
@@ -48,7 +49,12 @@ public class Task {
     @Column(name = "current_pomodoro_session")
     private int currentPomodoroSession;
 
+    @CreatedBy
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(
+            name = "user_id",
+            nullable = false,
+            updatable = false
+    )
     private UserInfo user;
 }
