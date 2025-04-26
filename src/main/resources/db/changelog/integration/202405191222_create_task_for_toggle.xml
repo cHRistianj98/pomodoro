@@ -5,14 +5,22 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
 
-    <changeSet id="202405191210_create_task_for_toggle" author="kania">
-        <insert tableName="tasks">
-            <column name="id" value="100" />
-            <column name="description" value="Task for toggle" />
-            <column name="number_of_pomodoro_sessions" value="10" />
-            <column name="done" value="false" />
-            <column name="current_pomodoro_session" value="0" />
+    <changeSet id="202405181210_create_user_for_toggle" author="kania">
+        <insert tableName="users">
+            <column name="id" valueNumeric="42"/>
+            <column name="username" value="toggleuser"/>
+            <column name="password" value="$2a$10$bcrypt-hash"/>
         </insert>
     </changeSet>
 
+    <changeSet id="202405191210_create_task_for_toggle" author="kania">
+        <insert tableName="tasks">
+            <column name="id" valueNumeric="100"/>
+            <column name="description" value="Task for toggle"/>
+            <column name="number_of_pomodoro_sessions" valueNumeric="10"/>
+            <column name="done" value="false"/>
+            <column name="current_pomodoro_session" value="0"/>
+            <column name="user_id" valueNumeric="42"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

@@ -30,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("integration")
 public class TaskControllerTest extends IntegrationTestCleanup {
 
+    private static final long TOGGLE_USER_ID = 42L;
+
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -79,6 +81,7 @@ public class TaskControllerTest extends IntegrationTestCleanup {
     public void shouldToggleTask() throws Exception {
         // given
         final var taskId = 100L;
+        customUser.setId(TOGGLE_USER_ID);
 
         // when + then
         mockMvc.perform(patch("/api/v1/tasks/" + taskId)
