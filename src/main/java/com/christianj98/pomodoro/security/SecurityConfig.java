@@ -27,8 +27,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final String REGISTER_PATH = "/api/v1/register";
-    private static final String LOGIN_PATH = "/api/v1/login";
+    private static final String REGISTER_PATH = "/api/v1/auth/register";
+    private static final String LOGIN_PATH = "/api/v1/auth/login";
     private static final String SWAGGER_UI_PATH = "/swagger-ui/**";
     private static final String SWAGGER_API_DOCS = "/v3/api-docs/**";
 

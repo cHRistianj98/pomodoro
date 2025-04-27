@@ -35,7 +35,7 @@ public class AuthControllerIntegrationTest {
                 .build();
 
         // when/then
-        mockMvc.perform(post("/api/v1/login")
+        mockMvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(authRequestDto)))
                 .andDo(print())
@@ -50,7 +50,7 @@ public class AuthControllerIntegrationTest {
                 "Register-integration-p@ssword");
 
         // when // then
-        mockMvc.perform(post("/api/v1/register")
+        mockMvc.perform(post("/api/v1/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerRequestDto)))
                 .andDo(print())
