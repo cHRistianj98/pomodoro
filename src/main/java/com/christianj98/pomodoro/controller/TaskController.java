@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,5 +47,10 @@ public class TaskController implements TaskApi {
     @ResponseStatus(HttpStatus.OK)
     public TaskDto toggleTask(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
         return taskService.toggleTask(id, user.getId());
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
+        taskService.deleteTask(id, user.getId());
     }
 }

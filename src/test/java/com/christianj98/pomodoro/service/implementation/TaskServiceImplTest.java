@@ -101,6 +101,34 @@ public class TaskServiceImplTest {
                 .isInstanceOf(TaskNotFoundException.class);
     }
 
+    @Test
+    public void deleteTask_taskDeleted() {
+        // given
+        final var taskId = 1L;
+        final var userId = 1L;
+        final var task = Task.builder().build();
+        when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.of(task));
+
+        // when
+        taskService.deleteTask(taskId, userId);
+
+        // then
+        verify(taskRepository).delete(task);
+    }
+
+    @Test
+    public void deleteTask_taskNotFound() {
+        // given
+        final var taskId = 1L;
+        final var userId = 1L;
+        when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.empty());
+
+        // when / then
+        assertThatThrownBy(() -> taskService.deleteTask(taskId, userId))
+                .isInstanceOf(TaskNotFoundException.class)
+                .hasMessage("Task not found!");
+    }
+
     private TaskDto createTaskDto() {
         return TaskDto.builder()
                 .description("test description")
