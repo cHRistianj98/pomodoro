@@ -4,7 +4,6 @@ import com.christianj98.pomodoro.dao.TaskRepository;
 import com.christianj98.pomodoro.dto.TaskDto;
 import com.christianj98.pomodoro.exception.TaskNotFoundException;
 import com.christianj98.pomodoro.model.Task;
-import com.christianj98.pomodoro.service.UserService;
 import com.christianj98.pomodoro.service.mapper.TaskMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
