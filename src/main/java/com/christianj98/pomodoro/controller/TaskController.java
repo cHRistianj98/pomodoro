@@ -50,6 +50,7 @@ public class TaskController implements TaskApi {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTask(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
         taskService.deleteTask(id, user.getId());
     }
