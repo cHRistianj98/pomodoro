@@ -25,6 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     log.error("Username not found: " + username);
                     return new UsernameNotFoundException("could not found user..!!");
                 });
+
         return new CustomUserDetails(user);
     }
 }
