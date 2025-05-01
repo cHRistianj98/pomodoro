@@ -4,9 +4,9 @@ application:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/pomodoro
-    username: pomodoro
-    password: pomodoro
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     open-in-view: false
     hibernate:
@@ -16,5 +16,5 @@ spring:
 
 jwt:
   expiration:
-    time: 1800000
-  secret: '357638792F423F4428472B4B6250655368566D597133743677397A2443264628'
+    time: ${JWT_EXPIRATION_TIME:1800000}
+  secret: ${JWT_SECRET}
