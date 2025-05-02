@@ -12,6 +12,6 @@ RUN ./mvnw clean package -DskipTests -B
 # ─── 2) Runtime Stage ─────────────────────────────────────────────────────────
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/*.jar /app.jar
 ENV SPRING_PROFILES_ACTIVE=prod
 ENTRYPOINT ["java", "-jar", "/app.jar"]
