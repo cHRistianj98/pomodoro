@@ -1,7 +1,6 @@
 # ─── 1) Build Stage ───────────────────────────────────────────────────────────
 FROM eclipse-temurin:17 AS builder
 WORKDIR /app
-
 COPY pom.xml mvnw ./
 COPY .mvn .mvn
 RUN ./mvnw dependency:go-offline -B
