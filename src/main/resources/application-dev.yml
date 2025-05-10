@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/pomodoro
     username: pomodoro
-    password: pomodoro
+    password: admin
   jpa:
     open-in-view: false
     hibernate:
