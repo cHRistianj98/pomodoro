@@ -26,6 +26,7 @@ public class AuditorAwareImpl implements AuditorAware<UserInfo> {
             final Long userId = ((CustomUserDetails) auth.getPrincipal()).getId();
             return userRepository.findById(userId);
         }
+
         return Optional.empty();
     }
 }
