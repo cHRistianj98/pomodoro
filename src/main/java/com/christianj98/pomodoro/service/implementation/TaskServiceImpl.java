@@ -44,6 +44,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
+    @PreAuthorize("hasRole('USER')")
+    public TaskDto incrementCurrentPomodoroSession(Long taskId, Long userId) {
+        final Task task = taskRepository.findByIdAndUserId(taskId, userId)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found!"));
+        task.setCurrentPomodoroSession(task.getCurrentPomodoroSession() + 1);
+        taskRepository.save(task);
+        return taskMapper.mapFrom(task);
+    }
+
+    @Override
     public void deleteTask(Long taskId, Long userId) {
         final Task task = taskRepository.findByIdAndUserId(taskId, userId)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found!"));

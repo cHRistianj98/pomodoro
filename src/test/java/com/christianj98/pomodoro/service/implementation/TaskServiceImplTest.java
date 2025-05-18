@@ -101,6 +101,40 @@ public class TaskServiceImplTest {
     }
 
     @Test
+    public void shouldIncrementCurrentPomodoroSession() {
+        // given
+        final var taskId = 1L;
+        final var userId = 1L;
+        final var currentPomodoroSession = 0;
+        final var task = Task.builder()
+                .id(taskId)
+                .currentPomodoroSession(currentPomodoroSession)
+                .build();
+        when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.of(task));
+        when(taskRepository.save(any())).thenReturn(task);
+
+        // when
+        taskService.incrementCurrentPomodoroSession(taskId, userId);
+
+        // then
+        verify(taskMapper).mapFrom(taskCaptor.capture());
+        assertThat(taskCaptor.getValue().getCurrentPomodoroSession()).isEqualTo(currentPomodoroSession + 1);
+    }
+
+    @Test
+    public void incrementCurrentPomodoroSession_shouldThrowExceptionIfEntityNotFound() {
+        // given
+        final long taskId = 1L;
+        final long userId = 1L;
+        when(taskRepository.findByIdAndUserId(taskId, userId)).thenReturn(Optional.empty());
+
+        // when/then
+        assertThatThrownBy(() -> taskService.incrementCurrentPomodoroSession(taskId, userId))
+                .isInstanceOf(TaskNotFoundException.class);
+    }
+
+
+    @Test
     public void deleteTask_taskDeleted() {
         // given
         final var taskId = 1L;

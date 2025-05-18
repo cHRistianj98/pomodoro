@@ -49,6 +49,12 @@ public class TaskController implements TaskApi {
         return taskService.toggleTask(id, user.getId());
     }
 
+    @PatchMapping("/{id}/session-up")
+    @ResponseStatus(HttpStatus.OK)
+    public TaskDto incrementSession(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
+        return taskService.incrementCurrentPomodoroSession(id, user.getId());
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTask(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
